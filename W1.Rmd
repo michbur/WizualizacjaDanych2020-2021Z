@@ -1,7 +1,7 @@
 ---
 title: "Wizualizacja danych I"
 author: "Michał Burdukiewicz"
-date: "25-04-2020"
+date: "06-12-2020"
 output: 
   ioslides_presentation:
     theme: "simplex"
@@ -44,12 +44,12 @@ theme_set(theme_bw())  # pre-set the bw theme.
 
 Michał Burdukiewicz:
 
- - bioinformatyk (MiNI PW),
+ - bioinformatyk (UMB, IBB PAN, BTU Cottbus-Senftenberg),
  - 12 lat doświadczenia z R,
  - Stowarzyszenie Wrocławskich Użytkowników R (stwur.pl),
  - Fundacja Why R? (whyr.pl).
 
-Materiały: https://github.com/michbur/WizualizacjaDanychWyklad2020
+Materiały: https://github.com/michbur/WizualizacjaDanych2020-2021Z
 
 Mail: michalburdukiewicz@gmail.com
 
