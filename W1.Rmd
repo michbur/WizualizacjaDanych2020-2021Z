@@ -787,7 +787,7 @@ Rozszerzenia: https://mpld3.github.io/
 ## plot.ly
 
 ```{r, echo=FALSE,warning=FALSE}
-gg
+plotly::ggplotly(gg)
 ```
 
 ## seaborn
