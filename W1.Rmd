@@ -51,19 +51,24 @@ Michał Burdukiewicz:
 
 Materiały: https://github.com/michbur/WizualizacjaDanych2020-2021Z
 
+Riseup: https://pad.riseup.net/p/BI4nhcKXPOTw_8Rswkbf-tmp
+
 Mail: michalburdukiewicz@gmail.com
 
 ## Literatura
 
  - Wilkinson, L. (2005). The Grammar of Graphics (New York: Springer-Verlag).
- - Biecek, P. (2016). Zbiór esejów o sztuce prezentowania danych Odkrywać! Ujawniać! Objaśniać!” (Warszawa: Wydawnictwa Uniwersytetu Warszawskiego.
+ - Biecek, P. (2016). Zbiór esejów o sztuce prezentowania danych Odkrywać! Ujawniać! Objaśniać!” (Warszawa: Wydawnictwo Uniwersytetu Warszawskiego).
+ - Cairo, A. (2019). How Charts Lie: Getting Smarter about Visual Information
  
 ## Plan spotkań
 
-1. Gramatyka grafiki.
-2. Błędy w wizualizacjach danych.
-3. Efektywne projektowanie dashboardów.
-4. Zaaawansowane wizualizacje danych.
+1. Czym są wizualizacje danych?
+2. Gramatyka grafiki.
+3. Błędy w wizualizacjach danych.
+4. Narzędzia do wizualizacji danych.
+5. Efektywne projektowanie dashboardów.
+6. Zaaawansowane wizualizacje danych.
 
 # Historia wizualizacji danych
 
@@ -76,6 +81,86 @@ Mail: michalburdukiewicz@gmail.com
 <img src="img/standards1915.png" width="500px" class="center">
 
 Joint Committee on Standards for Graphic Presentation (1915). **Standards for Graphic Presentation**. Publications of the American Statistical Association 14, 790–797.
+
+## Czym są wizualizacje danych?
+
+> **...(a) is based on qualitative or quantitative data and (b) results in an image that is representative of the raw data, which is (c) readable by viewers and supports exploration, examination, and communication of the data...**
+
+$~$
+
+Źródło: Tarek Azzam, Stephanie Evergreen, Amy A. Germuth, and Susan J. Kistler.
+Data visualization and evaluation. New Directions for Evaluation, 2013(139):7 
+32, 2013.
+
+## Czym są wizualizacje danych?
+
+> **...involves presenting data in graphical or pictorial form which makes the information easy to understand...**
+
+$~$
+
+Źródło: Matthew Sadiku, Adebowale Shadare, Sarhan Musa, Cajetan Akujuobi, and Roy
+Perry. Data visualization. International Journal of Engineering Research and
+Advanced Technology (IJERAT), 12:2454 6135, 12 2016.
+
+## Czym są wizualizacje danych?
+
+Wizualizacja danych to forma komunikacji. Tak jak każdy komunikat, wykresy muszą być przede wszystkim zrozumiałe dla odbiorcy.
+
+## Rodzaje wizualizacji
+```{r, echo=FALSE,warning=FALSE}
+ggplot(cbind(expand.grid(x = c("Statyczne\n", "Interaktywne\n"),
+                         y = c("Pojedyncza wizualizacja", "Wiele wizualizacji")), 
+             software = c("Wykres", "Interaktywny\nwykres", "Infografika", "Dashboard")),
+       aes(x = x, y = y, label = software)) +
+  geom_tile(fill = NA, color = "black") +
+  geom_text()  +
+  theme_void() +
+  theme(axis.text = element_text(color = "black"))
+```
+
+## Wizualizacja statyczna
+
+```{r, echo=FALSE,warning=FALSE}
+
+# midwest <- read.csv("http://goo.gl/G1K41K")  # bkup data source
+
+# Scatterplot
+gg <- ggplot(midwest, aes(x=area, y=poptotal)) + 
+  geom_point(aes(col=state)) + 
+  geom_smooth(method="loess", se=F) + 
+  xlim(c(0, 0.1)) + 
+  ylim(c(0, 500000)) + 
+  scale_color_discrete("") +
+  labs(y="Population", 
+       x="Area") +
+  theme_bw()
+
+gg
+```
+
+## 3D
+
+<img src="https://raw.githubusercontent.com/tylermorganwall/rayshader/master/man/figures/README_three-d-labels-1.png" width="500px" class="center">
+
+Wykresy 3D w **R**: https://github.com/tylermorganwall/rayshader
+
+## Infografiki
+
+Inspiracje: [VennGage](https://venngage.com/)
+
+<img src="https://thumbnails-visually.netdna-ssl.com/infographics--the-benefits-of-their-use-online_565c628147e97.jpg" width="300px" class="center">
+
+
+## Wizualizacje interaktywne
+
+```{r, echo=FALSE,warning=FALSE}
+ggplotly(gg)
+```
+
+## Dashboardy
+
+<img src="https://cdnl.tblsft.com/sites/default/files/blog/dashboard_spacing_in_tableau_2.gif" width="800px" class="center">
+
 
 # Gramatyka grafiki
 
@@ -333,6 +418,35 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species, shape = Spe
   ggtitle("Theme: Excel")
 ```
 
+## Stylizowanie wizualizacji
+
+1. Czcionki.
+2. Dodatkowe elementy graficzne.
+
+## Czcionki
+
+1. Czcionka do tytułów/nagłówków.
+2. Treść dokumentu.
+3. Wyróżnianie treści.
+
+## Czcionki
+
+<a href="https://cdn.dribbble.com/users/18730/screenshots/1593976/attachments/246597/full_pixels.png"><img src="https://cdn.dribbble.com/users/18730/screenshots/1593976/attachments/246597/full_pixels.png" width="700px" class="center"></a>
+
+## Czcionki
+
+Czcionki wykorzystywane przez Tableau są tak dobrane, aby zapewnić maksymalną czytelność przy małych rozmiarach. 
+
+<a href="https://help.tableau.com/current/pro/desktop/en-us/Img/format_font_best_practices.png"><img src="https://help.tableau.com/current/pro/desktop/en-us/Img/format_font_best_practices.png" width="150px" class="center"></a>
+
+## Grafiki
+
+Elementy graficzne nawiązujące do treści wzmacniają przekaz i pozwalają lepiej zrozumieć dane.
+
+## Grafiki
+
+<a href="http://s3.amazonaws.com/wp_media-prod/app/uploads/2015/09/24112845/Infographic_Design_Example_Captora.jpg"><img src="http://s3.amazonaws.com/wp_media-prod/app/uploads/2015/09/24112845/Infographic_Design_Example_Captora.jpg" width="700px"></a>
+
 ## Gramatyka grafiki
 
 | Nazwa                          | Przykłady                                              |
@@ -410,83 +524,60 @@ ggplot(dat, aes(x = price)) +
 
 # Błędy w wizualizacjach 
 
-## Rodzaje wizualizacji
-```{r, echo=FALSE,warning=FALSE}
-ggplot(cbind(expand.grid(x = c("Statyczne\n", "Interaktywne\n"),
-                         y = c("Pojedyncza wizualizacja", "Wiele wizualizacji")), 
-             software = c("Wykres", "Interaktywny\nwykres", "Infografika", "Dashboard")),
-       aes(x = x, y = y, label = software)) +
-  geom_tile(fill = NA, color = "black") +
-  geom_text()  +
-  theme_void() +
-  theme(axis.text = element_text(color = "black"))
-```
+## Rodzaje złych wizualizacji
 
-## Wizualizacja statyczna
+1. Fałszywe (przedstawiające fałszywe informacje)
+2. Mylące (przedstawiające fałszywie rzeczywiste informacje).
 
-```{r, echo=FALSE,warning=FALSE}
+## Wizualizacje i prawda
 
-# midwest <- read.csv("http://goo.gl/G1K41K")  # bkup data source
+<img src="https://upload.wikimedia.org/wikipedia/en/2/2a/How_to_Lie_with_Statistics.jpg" width="300px">
 
-# Scatterplot
-gg <- ggplot(midwest, aes(x=area, y=poptotal)) + 
-  geom_point(aes(col=state)) + 
-  geom_smooth(method="loess", se=F) + 
-  xlim(c(0, 0.1)) + 
-  ylim(c(0, 500000)) + 
-  scale_color_discrete("") +
-  labs(y="Population", 
-       x="Area") +
-  theme_bw()
+How to Lie with Statistics, Darrell Huff
 
-gg
-```
+## Korelacje i współwystępowanie
 
-## 3D
+<img src="https://victoriabensteadhume.files.wordpress.com/2017/06/chart.jpeg" width="700px">
 
-<img src="https://raw.githubusercontent.com/tylermorganwall/rayshader/master/man/figures/README_three-d-labels-1.png" width="600px" class="center">
+## Złe wizualizacje
 
-Wykresy 3D w **R**: https://github.com/tylermorganwall/rayshader
+<img src="https://undullify.com/wp-content/uploads/2016/05/data-viz-mistakes-4-impossible-comparisons.png" width="350px" class="center">
 
-## Infografiki
+Trudne porównania - niewłaściwie wybrana metoda wizualizacja.
 
-Inspiracje: [VennGage](https://venngage.com/)
+## Złe wizualizacje
 
-<img src="https://thumbnails-visually.netdna-ssl.com/infographics--the-benefits-of-their-use-online_565c628147e97.jpg" width="300px" class="center">
+<img src="https://deliveryimages.acm.org/10.1145/3240000/3231772/ins03.gif" width="200px" class="center">
+
+Niewłaściwie wybrana metoda wizualizacji.
+
+## Złe wizualizacje
+
+<img src="https://www.datapine.com/blog/wp-content/uploads/2015/10/Percent-of-Job-Loses-Relative-to-Peak-Employment-Month.jpg" width="400px" class="center">
+
+Zbyt duża ilość informacji na jednym wykresie.
+
+## Trzeci wymiar
+
+<img src="https://datavizproject.com/wp-content/uploads/2017/08/Sk%C3%A6rmbillede-2017-08-31-kl.-17.21.12.png" width="600px">
+
+## Wykresy kołowe
+
+<img src="https://support.content.office.net/en-us/media/4ffba23f-576a-4002-b39f-bbd0d293c198.gif" width="600px">
+
+## Wykresy kołowe
+
+<img src="http://images.powershow.com/powerpoint-slide-exploded-pie-chart-3d-multicolor-data-driven-cg-59-1.jpg" width="600px">
+
+## Ucięte osie
+
+<img src="https://venngage-wordpress.s3.amazonaws.com/uploads/2017/08/misleading-graphs-4.png" width="600px">
+
+## Ucięte osie
+
+<img src="https://peltiertech.com/images/2011-11/Ybroken.png" width="600px">
 
 
-## Wizualizacje interaktywne
-
-```{r, echo=FALSE,warning=FALSE}
-ggplotly(gg)
-```
-
-## Dashboardy
-
-<img src="https://cdnl.tblsft.com/sites/default/files/blog/dashboard_spacing_in_tableau_2.gif" width="800px" class="center">
-
-## Stylizowanie wizualizacji
-
-1. Czcionki.
-2. Kolory.
-3. Dodatkowe elementy graficzne.
-4. Układ treści.
-
-## Czcionki
-
-1. Czcionka do tytułów/nagłówków.
-2. Treść dokumentu.
-3. Wyróżnianie treści.
-
-## Czcionki
-
-<a href="https://cdn.dribbble.com/users/18730/screenshots/1593976/attachments/246597/full_pixels.png"><img src="https://cdn.dribbble.com/users/18730/screenshots/1593976/attachments/246597/full_pixels.png" width="700px" class="center"></a>
-
-## Czcionki
-
-Czcionki wykorzystywane przez Tableau są tak dobrane, aby zapewnić maksymalną czytelność przy małych rozmiarach. 
-
-<a href="https://help.tableau.com/current/pro/desktop/en-us/Img/format_font_best_practices.png"><img src="https://help.tableau.com/current/pro/desktop/en-us/Img/format_font_best_practices.png" width="150px" class="center"></a>
 
 ## Kolory
 
@@ -530,72 +621,14 @@ https://www.color-blindness.com/coblis-color-blindness-simulator/
 
 Tableau domyślnie dobiera palety kolorów (zarówno ilościowe jak i kategoryczne), które są łatwo rozróżnialne również dla osób z zaburzeniami widzenia barwnego.
 
-## Grafiki
+## Prostota
 
-Elementy graficzne nawiązujące do treści wzmacniają przekaz i pozwalają lepiej zrozumieć dane.
-
-## Grafiki
-
-<a href="http://s3.amazonaws.com/wp_media-prod/app/uploads/2015/09/24112845/Infographic_Design_Example_Captora.jpg"><img src="http://s3.amazonaws.com/wp_media-prod/app/uploads/2015/09/24112845/Infographic_Design_Example_Captora.jpg" width="700px"></a>
+Nadmiar stylizacji wykresu może zmniejszać czytelność wykresu.
 
 ## Prostota
 
-Dashboard może zawierać tylko jeden wykres, co nie przekłada się na łatwość jej zrozumienia.
+<a href="https://www.visualcapitalist.com/wp-content/uploads/2020/03/DeadliestPandemics-Infographic-87.jpg"><img src="https://www.visualcapitalist.com/wp-content/uploads/2020/03/DeadliestPandemics-Infographic-87.jpg" width="700px"></a>
 
-## Prostota
-
-<a href="http://s3.amazonaws.com/wp_media-prod/app/uploads/2015/09/24112730/Infographic_Design_Example_GOOD.jpeg"><img src="http://s3.amazonaws.com/wp_media-prod/app/uploads/2015/09/24112730/Infographic_Design_Example_GOOD.jpeg" width="700px"></a>
-
-
-
-## Złe wizualizacje
-
-<img src="https://undullify.com/wp-content/uploads/2016/05/data-viz-mistakes-4-impossible-comparisons.png" width="350px" class="center">
-
-Trudne porównania - niewłaściwie wybrana metoda wizualizacja.
-
-## Złe wizualizacje
-
-<img src="https://deliveryimages.acm.org/10.1145/3240000/3231772/ins03.gif" width="200px" class="center">
-
-Niewłaściwie wybrana metoda wizualizacji.
-
-## Złe wizualizacje
-
-<img src="https://www.datapine.com/blog/wp-content/uploads/2015/10/Percent-of-Job-Loses-Relative-to-Peak-Employment-Month.jpg" width="400px" class="center">
-
-Zbyt duża ilość informacji na jednym wykresie.
-
-
-## Wizualizacje i prawda
-
-<img src="https://upload.wikimedia.org/wikipedia/en/2/2a/How_to_Lie_with_Statistics.jpg" width="300px">
-
-How to Lie with Statistics, Darrell Huff
-
-## Korelacje i współwystępowanie
-
-<img src="https://victoriabensteadhume.files.wordpress.com/2017/06/chart.jpeg" width="700px">
-
-## Trzeci wymiar
-
-<img src="https://datavizproject.com/wp-content/uploads/2017/08/Sk%C3%A6rmbillede-2017-08-31-kl.-17.21.12.png" width="600px">
-
-## Wykresy kołowe
-
-<img src="https://support.content.office.net/en-us/media/4ffba23f-576a-4002-b39f-bbd0d293c198.gif" width="600px">
-
-## Wykresy kołowe
-
-<img src="http://images.powershow.com/powerpoint-slide-exploded-pie-chart-3d-multicolor-data-driven-cg-59-1.jpg" width="600px">
-
-## Ucięte osie
-
-<img src="https://venngage-wordpress.s3.amazonaws.com/uploads/2017/08/misleading-graphs-4.png" width="600px">
-
-## Ucięte osie
-
-<img src="https://peltiertech.com/images/2011-11/Ybroken.png" width="600px">
 
 ## Przykłady
 
@@ -680,6 +713,20 @@ Imperatywne:
  - zadanie: krok po kroku jak stworzyć wizualizację,
  - użytkownik w pełni kontroluje każdy detal wizualizacji,
  - jeśli warunki jakie musi spełniać wizualizacja zmienią się nawet odrobinę, instrukcja tworzenia może się zmienić znacząco.
+
+## Języki wizualizacji danych
+
+```{r}
+ggplot(cbind(expand.grid(x = c("Imperatywne\n", "Deklaratywne\n"),
+                         y = c("Proste do użycia", "Wszechstronne")), 
+             software = c("Seaborn", "Bokeh\nR (ggplot2)\nLeaflet\nVega-Lite",  "Matplotlib\nR (base, grid)", "BQPlot\nD3\nPlotly\nVega")),
+       aes(x = x, y = y, label = software)) +
+  geom_tile(fill = NA, color = "black") +
+  geom_text()  +
+  theme_void() +
+  theme(axis.text = element_text(color = "black")) +
+  ggtitle("Jakich narzędzi używamy w codziennej praktyce?")
+```
 
 ## Altair (Python)
 
