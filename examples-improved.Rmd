@@ -108,7 +108,9 @@ ggplot(dat, aes(x = cut)) +
   geom_bar() +
   facet_grid(cut ~ clarity, labeller = label_both) +
   ggtitle("Przed poprawkami")
+```
 
+```{r,fig.height=7}
 group_by(dat, cut, clarity) %>% 
   summarise(count = length(cut)) %>% 
   ggplot(aes(x = cut, y = clarity, size = count)) +
@@ -129,6 +131,6 @@ ggplot(dat, aes(x = price)) +
   geom_histogram() +
   facet_wrap(~ cut, labeller = label_both, scales = "free") +
   ggtitle("Po poprawkach") + 
-  scale_x_continuous(limits = c(0, 1900)) + 
-  scale_y_continuous(limits = c(0,12.6))
+  scale_x_continuous(limits = c(0, 19000)) + 
+  scale_y_continuous(limits = c(0,14.6))
 ```
