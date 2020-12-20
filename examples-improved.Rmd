@@ -54,10 +54,11 @@ ggplot(hm_dat, aes(x = cut, y = clarity, fill = count)) +
   scale_fill_gradient(low = "white", high = "black") +
   ggtitle("Przed poprawkami")
 
-ggplot(hm_dat, aes(x = clarity, y = count, shape = cut, 
+ggplot(hm_dat, aes(x = clarity, y = count, shape = cut, color = cut,
                    group = cut, linetype = cut)) +
   geom_point() +
   geom_line() +
+  scale_color_manual(values = rainbow(5)) +
   ggtitle("Po poprawkach") +
   theme(panel.grid.major.x = element_blank())
 
@@ -74,7 +75,7 @@ ggplot(dat, aes(x = carat, y = price, shape = clarity)) +
 
 ggplot(dat, aes(x = carat, y = price)) +
   geom_point() +
-  facet_wrap(~ clarity) +
+  facet_wrap(~ clarity, scales = "free_y") +
   scale_x_continuous(limits = c(0, max(dat[["carat"]]))) +
   scale_y_continuous("Price [USD]") +
   ggtitle("Po poprawkach")
@@ -113,7 +114,7 @@ ggplot(dat, aes(x = cut)) +
 ```{r,fig.height=7}
 group_by(dat, cut, clarity) %>% 
   summarise(count = length(cut)) %>% 
-  ggplot(aes(x = cut, y = clarity, size = count)) +
+  ggplot(aes(x = cut, y = clarity, size = count, color = count)) +
   geom_point() +
   ggtitle("Po poprawkach")
 ```
