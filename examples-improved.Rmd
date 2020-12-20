@@ -1,0 +1,134 @@
+---
+title: "Przykłady - poprawione"
+author: "Michał Burdukiewicz"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+theme_set(theme_bw())
+library(patchwork)
+```
+
+```{r}
+set.seed(15390)
+dat <- droplevels(diamonds[sample(1L:nrow(diamonds), 100), ])
+```
+
+\newpage
+
+## Rysunek 1
+
+```{r}
+p_old <- ggplot(dat, aes(x = cut, y = price)) +
+  geom_boxplot(outlier.color = NA) +
+  geom_point(position = "jitter") +
+  ggtitle("Przed poprawkami")
+
+cut_dat <- group_by(dat, cut) %>% 
+  summarise(cnt = length(cut),
+            med = median(price))
+
+p_new <- ggplot(dat, aes(x = cut, y = price)) +
+  geom_boxplot() +
+  geom_label(data = cut_dat, mapping = aes(label = cnt, y = med)) +
+  ggtitle("Po poprawkach")
+
+p_old
+p_new
+```
+
+\newpage
+
+## Rysunek 2
+
+```{r}
+hm_dat <- group_by(dat, cut, clarity) %>% 
+  summarise(count = length(price))
+
+ggplot(hm_dat, aes(x = cut, y = clarity, fill = count)) +
+  geom_tile(color = "black") +
+  scale_fill_gradient(low = "white", high = "black") +
+  ggtitle("Przed poprawkami")
+
+ggplot(hm_dat, aes(x = clarity, y = count, shape = cut, 
+                   group = cut, linetype = cut)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Po poprawkach") +
+  theme(panel.grid.major.x = element_blank())
+
+```
+
+\newpage
+
+## Rysunek 3
+
+```{r}
+ggplot(dat, aes(x = carat, y = price, shape = clarity)) +
+  geom_point() +
+  ggtitle("Przed poprawkami")
+
+ggplot(dat, aes(x = carat, y = price)) +
+  geom_point() +
+  facet_wrap(~ clarity) +
+  scale_x_continuous(limits = c(0, max(dat[["carat"]]))) +
+  scale_y_continuous("Price [USD]") +
+  ggtitle("Po poprawkach")
+
+```
+
+\newpage
+
+## Rysunek 4
+
+```{r}
+ggplot(dat, aes(x = carat, y = price, shape = cut)) +
+  geom_point() +
+  facet_wrap(~ clarity, labeller = label_both) +
+  ggtitle("Przed poprawkami")
+
+ggplot(dat, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  scale_y_continuous(labels = scales::label_number(scale = 1/1e3, suffix = "k",
+                                                   accuracy = 0.9)) +
+  facet_wrap(~ clarity, labeller = label_both) +
+  ggtitle("Po poprawkach")
+```
+
+\newpage
+
+## Rysunek 5
+
+```{r,fig.height=7}
+ggplot(dat, aes(x = cut)) +
+  geom_bar() +
+  facet_grid(cut ~ clarity, labeller = label_both) +
+  ggtitle("Przed poprawkami")
+
+group_by(dat, cut, clarity) %>% 
+  summarise(count = length(cut)) %>% 
+  ggplot(aes(x = cut, y = clarity, size = count)) +
+  geom_point() +
+  ggtitle("Po poprawkach")
+```
+\newpage
+
+## Rysunek 6
+
+```{r}
+ggplot(dat, aes(x = price)) +
+  geom_histogram() +
+  facet_wrap(~ cut, labeller = label_both) +
+  ggtitle("Przed poprawkami")
+
+ggplot(dat, aes(x = price)) +
+  geom_histogram() +
+  facet_wrap(~ cut, labeller = label_both, scales = "free") +
+  ggtitle("Po poprawkach") + 
+  scale_x_continuous(limits = c(0, 1900)) + 
+  scale_y_continuous(limits = c(0,12.6))
+```

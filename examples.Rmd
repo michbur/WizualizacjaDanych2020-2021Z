@@ -1,5 +1,5 @@
 ---
-title: "Przyklady"
+title: "Przykłady"
 author: "Michał Burdukiewicz"
 output: pdf_document
 ---
