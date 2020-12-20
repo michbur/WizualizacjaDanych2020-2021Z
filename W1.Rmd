@@ -193,7 +193,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 ```
 
 **Oś X:** Sepal.Length.
-**Oś Y:** Petal.Length.
+**Oś Y:** Sepal.Width.
 
 ## Atrybuty wizualne 
 
@@ -203,7 +203,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
 ```
 
 **Oś X:** Sepal.Length.
-**Oś Y:** Petal.Length.
+**Oś Y:** Sepal.Width.
 **Kolor:** Species.
 
 ## Atrybuty wizualne 
@@ -214,7 +214,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, shape = Species)) +
 ```
 
 **Oś X:** Sepal.Length.
-**Oś Y:** Petal.Length.
+**Oś Y:** Sepal.Width.
 **Kształt:** Species.
 
 ## Atrybuty wizualne 
@@ -225,7 +225,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species, shape = Spe
 ```
 
 **Oś X:** Sepal.Length.
-**Oś Y:** Petal.Length.
+**Oś Y:** Sepal.Width.
 **Kształt:** Species.
 **Kolor:** Species.
 
